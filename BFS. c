@@ -1,40 +1,50 @@
-#include <stdio.h>
-
-int a[20][20]q[20]
-int visited[10],n,i,j,f=-1,r=-1;
+#include<stdio.h>
+int a[20][20],q[20],visited[20],n,front=-1,rear=-1;
 void bfs(int v)
 {
-        for(i=1; i<=n; i++)
-        if(a[v][i] && ! visited[i])
-        q[++r]=i;
-        if(f<=r)
+    int i;
+    for(i=0;i<n;i++)
+    {
+        if(a[v][i]!=0 && visited[i]==0)
         {
-            visited[q[f]]=1;
-            bfs(r[f++]);
-        
+            rear=rear+1;
+            q[rear]=i;
+            visited[i]=1;
+            printf("%d",i);
         }
+    }
+    front=front+1;
+    if(front<=rear)
+    {
+        bfs(q[front]);
+    }
 }
 void main()
 {
-    int v;
-    printf("\n ENTER THE NUMBER OF VERTICES:");
+    int v,i,j;
+    printf("Enter the number of Vertices:");
     scanf("%d",&n);
-    for(i=1; i<=n; i++)
+    for(i=0;i<n;i++)
     {
-        q[i]=0;
-        visited[i]=0;
-        
+        visited[i]=0; //intialize all visted as zero
     }
-    printf("\n ENTER GRAPH DATA IN MATRIX FORM: \n");
-    for(i=1; i<=n; i++)
-    for(j=1; j<=n; j++)
-    scanf("%d",&a[i][j]);
-    printf("\n the node which are reachble :\n");
+    printf("Enter the node in  matrix form\n");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("Enter the starting vertex:");
     scanf("%d",&v);
+    front=rear=0; //inserting value to queue so assigned value for front and rear
+    q[rear]=v;
+    visited[v]=1;
+    printf("%d",v);
     bfs(v);
-    for(i=1;i<=n;i++)
-    if(visited[i])
-    printf("%d\t",i);
-    else
-    printf("\n BFS is not possible");
+    if(rear!=n-1)
+    {
+        printf("BFS is not possible");
+    }
 }
